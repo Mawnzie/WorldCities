@@ -1,0 +1,23 @@
+# Build Folders
+bin/
+obj/
+
+# Visual Studio files
+*.user
+*.suo
+
+# User-specific files
+.vscode/
+
+# ASP.NET Core environment config
+appsettings.Development.json
+
+# User secrets file (usually outside project but just in case)
+secrets.json
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
