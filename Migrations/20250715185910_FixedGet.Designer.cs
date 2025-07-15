@@ -11,8 +11,8 @@ using WorldCities.Models;
 namespace WorldCities.Migrations
 {
     [DbContext(typeof(WCContext))]
-    [Migration("20250711211706_Restructured")]
-    partial class Restructured
+    [Migration("20250715185910_FixedGet")]
+    partial class FixedGet
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,11 +26,11 @@ namespace WorldCities.Migrations
 
             modelBuilder.Entity("WorldCities.Models.WorldCity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CityId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CityId"));
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -43,7 +43,7 @@ namespace WorldCities.Migrations
                     b.Property<int>("Population")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("CityId");
 
                     b.ToTable("WorldCities");
                 });

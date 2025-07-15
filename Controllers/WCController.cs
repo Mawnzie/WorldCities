@@ -16,17 +16,23 @@ public class WCController : ControllerBase
         _context = context;
     }
 
+
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<WorldCity>>> GetWorldCities()
     {
-        var cities = _context.WorldCities.ToList();
+        var cities = await _context.WorldCities
+            .OrderByDescending(c => c.Population)
+            .ToListAsync();
+
         return Ok(cities);
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<WorldCity>> GetWorldCity(int id)
+
+    [HttpGet("{CityId}")]
+    public async Task<ActionResult<WorldCity>> GetWorldCity(int CityId)
     {
-        var city = await _context.WorldCities.FindAsync(id);
+        var city = await _context.WorldCities.FindAsync(CityId);
 
         if (city == null)
         {
@@ -35,10 +41,10 @@ public class WCController : ControllerBase
         return city;
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{CityId}")]
     public async Task<IActionResult> PutWorldCity(int id, WorldCity city)
     {
-        if (id != city.Id)
+        if (id != city.CityId)
         {
             return BadRequest();
         }
@@ -67,12 +73,12 @@ public class WCController : ControllerBase
         _context.WorldCities.Add(city);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction("GetWorldCity", new { id = city.Id }, city);
+        return CreatedAtAction("GetWorldCity", new { CityId = city.CityId }, city);
     }
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteWorldCity(int id)
+    [HttpDelete("{CityId}")]
+    public async Task<IActionResult> DeleteWorldCity(int CityId)
     {
-        var city = await _context.WorldCities.FindAsync(id);
+        var city = await _context.WorldCities.FindAsync(CityId);
         if (city == null)
         {
             return NotFound();
@@ -82,9 +88,9 @@ public class WCController : ControllerBase
         return NoContent();
     }
 
-    private bool WorldCityExists(int id)
+    private bool WorldCityExists(int CityId)
 {
-    return _context.WorldCities.Any(e => e.Id == id);
+    return _context.WorldCities.Any(e => e.CityId == CityId);
 }
 
 }

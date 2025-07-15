@@ -5,7 +5,7 @@
 namespace WorldCities.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateWorldCity : Migration
+    public partial class FixedGet : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
